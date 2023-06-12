@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="/jquery/jq.js"></script>
+    <style>
+        body {
+            font-family: 'Catamaran', sans-serif;
+        }
+        .d-block {
+            width: 37%;
+        }
+
+        .d-block .content {
+            display: block;
+            height: 400px;
+            overflow-y: scroll;
+        }
+        .content::-webkit-scrollbar
+        {
+            display:none;
+        }
+        .b-row {
+            width: 100%;
+            border: 1px solid black;
+        }
+
+        .cal1 {
+            padding: 30px;
+        }
+
+        .cal {
+            padding: 30px 24px 27px 24px;
+        }
+
+        .d-vers {
+            display: block;
+            width: 63%;
+        }
+
+        .d-vers1 {
+            height: 429px;
+        }
+
+        .d-vers1-1 {
+            display: block;
+            width: 13%;
+            margin-left: 4px;
+            height: 429px;
+            float: left;
+        }
+
+        .d-vers1-2 {
+            display: block;
+            width: 86%;
+            height: 429px;
+            margin-left: 118px;
+            overflow-y: scroll;
+        }
+        .d-vers1-2::-webkit-scrollbar
+        {
+            display: none;
+        }
+        .d-vers .boxs {
+            display: grid;
+            background: #a8e0a2;
+            margin: 4px;
+            height: 220px;
+            grid-template-columns: repeat(7, 2fr);
+            grid-template-rows: repeat(7, 100px);
+            gap: 4px;
+            font-size: 14px;
+        }
+
+        .boxs .box-1 button {
+            width: 114px;
+            height: 48px;
+            color: white;
+        }
+
+        .boxs .box-2 button {
+            width: 114px;
+            height: 100px;
+            color: white;
+        }
+
+        img {
+            border: 2px solid rgb(158, 39, 212);
+            cursor: pointer;
+        }
+
+        #scroll {
+            background-color: #cad7ff;
+            margin-left: auto;
+            margin-right: auto;
+            width: 94%;
+            height: 425px;
+        }
+
+        .scroll-div {
+            height: 63px;
+            width: 95px;
+            background-color: #cacbd0;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .scrolls-div {
+            height: 298px;
+            width: 95px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow-y: scroll;
+            
+        }
+        .scrolls-div::-webkit-scrollbar
+        {
+            display:none;
+        }
+        .gridscroll {
+            position: relative;
+            width: 95px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            border: 1px solid black;
+        }
+        .Payable {
+            border: 2px solid black;
+            border-left: none;
+            border-right: none;
+        }
+
+        #preview {
+            display: none;
+        }
+    </style>
+</head>
+
+<body style="background: #d1d1d1">
+    <div class="d-flex">
+        <div class="d-block">
+            <div class="content" id="bill">
+                <!-- Bill Information Table -->
+                <div class="b-row">
+                    <h5>Total Price: $<span id="pay">0.0</span> </h5>
+                </div>
+                <div calss="container">
+                    <table class="table table-borderless" id="tbShow">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Total Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="content" id="preview">
+                <div class="b-row">
+                    <h5>Change: $<span id="change">0.0</span> </h5>
+                </div>
+                <div calss="container">
+                    <div class="d-flex justify-content-between mt-3 p-2">
+                        <div class="">
+                            <h5>Amount</h5>
+                        </div>
+                        <div>
+                            <h5>$<span id="amount">0.0</span></h5>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between p-2">
+                        <div>
+                            <h5>GST Amount</h5>
+                        </div>
+                        <div>
+                            <h5>$<span id="gst">0.0</span></h5>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between p-2 Payable">
+                        <div>
+                            <h5 class="text-danger">Payable</h5>
+                        </div>
+                        <div>
+                            <h5>$<span id="pay1">0.0</span></h5>
+                        </div>
+                    </div>
+                    <div class="p-2">
+                        <div class="d-flex justify-content-between text-primary">
+                            <div class="">
+                                <p class="">Tender</p>
+                            </div>
+                            <div>
+                                <p>$<span id="tender">0.0</span></p>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between  text-primary">
+                            <div>
+                                <p>change</p>
+                            </div>
+                            <div>
+                                <p>$<span id="change1">0.0</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Calculator For Bill -->
+            <div class="container-fluid" id="stop">
+                <div class="row">
+                    <div class="col-md-5">
+                        <lable for="Ino">Item Number</lable>
+                        <input type="number" id="Ino" class="form-control" onfocus="Cal(this.id)">
+                    </div>
+                    <div class="col-md-4">
+                        <lable for="qt">Quantity</lable>
+                        <input type="number" id="qt" class="form-control" onfocus="Cal(this.id)">
+                    </div>
+                    <div class="col-md-2 align-self-end">
+                        <input type="button" class="btn btn-primary" value="Add" id="add">
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-3">
+                        <input type="button" class="btn btn-primary" value="Language">
+                        <div class="box1">
+                            <lable for="Tno" class=" form-label">Table No</lable>
+                            <input type="number" id="Tno" class="form-control" onfocus="Cal(this.id)">
+                        </div>
+                        <div class="box2">
+                            <lable for="cover" class=" form-label">No of Cover</lable>
+                            <input type="number" id="cover" class="form-control" onfocus="Cal(this.id)">
+                        </div>
+                    </div>
+                    <!-- Digit Button -->
+                    <div class="col-md-4">
+                        <div class="row p-1">
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="7" onclick="calNumber(this.value)"></div>
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="8" onclick="calNumber(this.value)"></div>
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="9" onclick="calNumber(this.value)"></div>
+                        </div>
+                        <div class="row p-1">
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="4" onclick="calNumber(this.value)"></div>
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="5" onclick="calNumber(this.value)"></div>
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="6" onclick="calNumber(this.value)"></div>
+                        </div>
+                        <div class="row p-1">
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="1" onclick="calNumber(this.value)"></div>
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="2" onclick="calNumber(this.value)"></div>
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="3" onclick="calNumber(this.value)"></div>
+                        </div>
+                        <div class="row p-1">
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="0" onclick="calNumber(this.value)"></div>
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value=". "  onclick="calNumber(this.value)"></div>
+                            <div class="col-md-3"><input type="button" class="btn btn-primary no" value="-" onclick="calNumber(this.value)"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="d-block">
+                            <input type="button" class="btn btn-primary cal1" value="AC" id="ac">
+                        </div>
+                        <div class="d-block">
+                            <input type="button" class="btn btn-primary cal mt-3" value="Clear" id="clear">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="d-vers" id="stop1">
+            <div class="d-vers1">
+                <!-- Scroll Bar -->
+                <div class="d-vers1-1 bg-light">
+                    <div class="d-block" id="scroll">
+                        <div class="d-flex scroll-div shadow-sm justify-content-center align-item-center" id="previous">
+                            <i class="fa fa-arrow-up" aria-hidden="true" style="font-size: 60px;"></i>
+                        </div>
+                        <div class="d-block scrolls-div" id="container">
+                            
+                        </div>
+                        <div class="d-flex scroll-div shadow-sm justify-content-center align-item-center" id="next">
+                            <i class="fa fa-arrow-down" aria-hidden="true" style="font-size: 60px;"></i>
+                        </div>
+                    </div>
+                </div>
+                <!-- Image Container -->
+                <div class="d-vers1-2">
+                    <div class="d-flex flex-wrap p-2" id="images">
+
+                    </div>
+                </div>
+            </div>
+            <!-- Button Container -->
+            <div class="boxs p-2">
+                <div class="box-1"><button type="button" class="shadow rounded" style=" background-color: #ff9703; "
+                        id="newBill">New
+                        Bill</button>
+                    <button type="button" class="shadow rounded mt-1" style=" background-color: #ff9703;">Price
+                        Amendment</button>
+                </div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color: #ff9703;" id="two">$2
+                    </button></div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color: #ff9703;" id="ten">$10
+                    </button></div>
+                <div class="box-1"><button type="button" class="shadow rounded" style=" background-color: #1fce1f;">Open
+                        cash Box</button>
+                    <button type="button" class="shadow rounded mt-1" style=" background-color: #1fce1f;" id="terminate">Terminate
+                        Transaction</button>
+                </div>
+                <div class="box-1"><button type="button" class="shadow rounded"
+                        style=" background-color: #1fce1f;">Goods Return</button> 
+                    <button type="button" class="shadow rounded mt-1" style=" background-color: #1fce1f;" id="print">Print</button>
+                </div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color:#1fce1f;"
+                        id="cancelItem">Cancel Item</button></div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color: #1fce1f;">Add
+                        Item</button></div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color: #ff9703;" id="Bill"><i
+                            class="fa fa-play"></i>
+                        Bill</button></div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color: #ff9703;" id="five">$5
+                    </button>
+                </div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color: #ff9703;" id="fifty">$50
+                    </button>
+                </div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color: #ff9703;">Gift
+                        Voucher</button></div>
+                <div class="box-1">
+                    <button type="button" class="shadow rounded " style=" background-color:#1fce1f;">Reserved
+                        Transaction</button>
+                    <button type="button" class="shadow rounded mt-1" style=" background-color:#1fce1f;">Restore
+                    </button>
+                </div>
+                <div class="box-2"><button type="button" class="shadow rounded"
+                        style=" background-color: #1fce1f;" id="delete">Delete All Transaction</button>
+                </div>
+                <div class="box-2"><button type="button" class="shadow rounded" style=" background-color: #1fce1f;"
+                        onclick="window.location.href='index.html';">Main Menu</button></div>
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="Javascript/Biiling.js">
+
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+</html>
